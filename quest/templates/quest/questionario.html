@@ -1,0 +1,29 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'quest/style.css' %}">
+<script type="text/javascript" src="{% static 'quest/script.js' %}"></script>
+
+<form name="form1" action="{% url 'quest:votos' questionario.id %}" method='post'>
+    <div class="ror-content">
+        {% csrf_token %}
+        <h1 class="ror-titulo">{{ questionario.titulo }}</h1>
+        {% for p in questionario.pergunta_set.all %}
+        <div class="ror-pergunta-bloco">
+            <object class="ror-img" data="{% static 'img/' %}{{ p.img_nome }} " type="image/png">
+                <img class="ror-img" src="{% static 'img/indisponivel.jpg' %}">
+            </object>
+            <div class="ror-pergunta">
+                <h4>{{ p.texto }}</h4>
+                <div class="ror-resposta">
+                    {% for r in p.resposta_set.all %}
+                    <input type="radio" name="perg_{{ p.pk }}" id="resp_{{ r.pk }}" value="{{ r.id }}">
+                    <label for="perg_{{ p.pk }}"> {{ r.texto }}</label></br>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="ror-btn">
+            <input type="submit" value="Enviar Dados">
+        </div>
+    </div>
+</form>

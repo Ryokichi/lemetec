@@ -1,0 +1,30 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'quest/style.css' %}">
+<script type="text/javascript" src="{% static 'quest/script.js' %}"></script>
+
+<div class="result-box">
+    <h1 class="ror-titulo">{{ questionario.titulo }}</h1>
+    <div class="result-qtd">Este quetionário foi respondido {{questionario.qtd_respondida}} vezes
+        </br>
+        Abaixo a resposta mais votada para cada pergunta
+    </div>
+
+    {% for item in perg_resp %}
+    
+
+    <div class="ror-pergunta-bloco">
+        <object class="ror-img" data="{% static 'img/' %}{{ item.pergunta.img_nome }} " type="image/png">
+            <img class="ror-img" src="{% static 'img/indisponivel.jpg' %}">
+        </object>
+        <div class="ror-pergunta">
+            <h4>{{ item.pergunta.texto }}</h4>
+            <div class="result-resposta">
+                {{ item.resposta.texto }}
+                <br> {{ item.resposta.votos }} votos.
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+</div>
